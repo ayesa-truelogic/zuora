@@ -49,7 +49,8 @@ module Zuora
     # Is this an authenticated session?
     # @return [Boolean]
     def authenticated?
-      self.session.try(:active?)
+      # Adding the test environment in here so requests line up with vcr
+      self.session.try(:active?) && !Rails.env.test?
     end
 
     # Change client to use sandbox url
